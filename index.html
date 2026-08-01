@@ -55,7 +55,7 @@ header{padding:28px 0 22px;border-bottom:1px solid var(--line)}
 .hero{padding:46px 0 10px}
 .kicker{font-family:'JetBrains Mono';font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px}
 .hero h1{font-family:'Fraunces';font-weight:600;font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.015em;line-height:1.16;max-width:20ch}
-.hero .lead{margin-top:18px;font-size:1.1rem;color:var(--ink-muted);max-width:62ch;line-height:1.65}
+.hero .lead{margin-top:18px;font-size:1.1rem;color:var(--ink-muted);max-width:52ch;line-height:1.65}
 .hero .lead b{color:var(--ink)}
 
 /* role card */
@@ -199,7 +199,7 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
   <h1 data-k="hero_h1">설비의 한계까지 계산해서 파는<br>VPP 입찰 시스템</h1>
   <p class="lead" data-k="hero_lead">기존 VPP(가상발전소) 거래는 설비 상태를 언제나 <b>100% 정상</b>이라 가정합니다. 이 프로젝트는 고장·열화 리스크를 목적함수에 직접 넣고, <b>AI는 후보를 제안하고 코드가 숫자를 검증</b>하는 이중 승인 구조로 최적 입찰을 추천하는 Human-in-the-Loop 시스템입니다.</p>
   <div class="pillrow">
-    <span class="pill">🏆 <span data-k="pill_award">금상 · 고려대×Upstage 에너지AI 해커톤 (20팀 중 1위)</span></span>
+    <span class="pill">🏆 <span data-k="pill_award">금상 · 고려대×Upstage 에너지AI 해커톤 (23팀 중 1위)</span></span>
     <span class="pill green"><span data-k="pill_role">팀장 · 시스템 아키텍처 설계</span></span>
   </div>
 
@@ -309,7 +309,7 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
   <div class="kicker" data-k="r_kick">07 · 결과</div>
   <h2 data-k="r_h2">고려대 × Upstage 에너지AI 해커톤 금상</h2>
   <div class="resultbox">
-    <div class="rbox"><div class="rk" data-k="r1_k">AWARD</div><div class="rv" data-k="r1_v">금상 (1st place)<small data-k="r1_s">참가 20팀 중 1위 · 팀 "AI하르방"</small></div></div>
+    <div class="rbox"><div class="rk" data-k="r1_k">AWARD</div><div class="rv" data-k="r1_v">금상 (1st place)<small data-k="r1_s">참가 23팀 중 1위 · 팀 "AI하르방"</small></div></div>
     <div class="rbox"><div class="rk" data-k="r2_k">TEAM</div><div class="rv" data-k="r2_v">3인 팀<small data-k="r2_s">기계공학부 · 전기전자공학부 · 보건환경융합과학부</small></div></div>
   </div>
 </div></section>
@@ -335,7 +335,7 @@ var EN = {
   hero_kick: "TEAM PROJECT · SYSTEM ARCHITECTURE",
   hero_h1: "A VPP bidding system that prices in<br>equipment risk, not just market price",
   hero_lead: "Conventional VPP (virtual power plant) trading always assumes equipment is <b>100% healthy</b>. This project puts failure and degradation risk directly into the objective function, and recommends the optimal bid through a dual-approval, Human-in-the-Loop system where <b>AI proposes candidates and code verifies the numbers</b>.",
-  pill_award: "Gold Prize · Korea University × Upstage Energy AI Hackathon (1st of 20 teams)",
+  pill_award: "Gold Prize · Korea University × Upstage Energy AI Hackathon (1st of 23 teams)",
   pill_role: "Team Lead · System Architecture",
   role_h: "What I designed in this project",
   role_1: "Overall system architecture — data flow, verification stages, retry-gate structure",
@@ -389,7 +389,7 @@ var EN = {
   e2_h: "A pluggable failure-prediction algorithm", e2_p: "The current failure-probability multiplier \\(M(r)=e^{K(r-1)}\\) is an approximation backed out from a single anchor assumption — \"failure probability at 70% output is about 11% of full-power\" — and that limitation is documented in the code comments. Splitting this function out as a swappable plugin means it can be replaced with an equipment-specific measured degradation model, or a deep-learning PHM algorithm, for easy comparison — the interface was separated from the start with exactly this in mind.",
   e3_h: "Logging operator choices → personalization", e3_p: "If the ratio an operator actually picks on Slack (did they follow the AI's top pick, or go more conservative/aggressive) is logged over time, the AI's proposals themselves can be personalized to that operator's and equipment's risk tendency.",
   r_kick: "07 · RESULT", r_h2: "Gold Prize — Korea University × Upstage Energy AI Hackathon",
-  r1_k: "AWARD", r1_v: "Gold Prize (1st place)", r1_s: "1st of 20 competing teams · team \"AI-Harubang\"",
+  r1_k: "AWARD", r1_v: "Gold Prize (1st place)", r1_s: "1st of 23 competing teams · team \"AI-Harubang\"",
   r2_k: "TEAM", r2_v: "3-person team", r2_s: "Mechanical Engineering · Electrical & Electronic Engineering · Health & Environmental Sciences",
   m1: "objective-function design", m2: "dual LLM cross-review", m3: "rule-based recompute diff-check", m4: "finite retry gate", m5: "Human-in-the-Loop UX",
   ft_back: "See the full portfolio →",
