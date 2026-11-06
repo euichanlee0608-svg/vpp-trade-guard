@@ -315,8 +315,8 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
   <div class="kicker" data-k="r_kick">07 · 결과</div>
   <h2 data-k="r_h2">고려대 × Upstage 에너지AI 해커톤 금상</h2>
   <div class="resultbox">
-    <div class="rbox"><div class="rk" data-k="r1_k">AWARD</div><div class="rv" data-k="r1_v">금상 (1st place)<small data-k="r1_s">참가 23팀 중 1위 · 팀 "AI하르방"</small></div></div>
-    <div class="rbox"><div class="rk" data-k="r2_k">TEAM</div><div class="rv" data-k="r2_v">3인 팀<small data-k="r2_s">기계공학부 · 전기전자공학부 · 보건환경융합과학부</small></div></div>
+    <div class="rbox"><div class="rk" data-k="r1_k">AWARD</div><div class="rv"><span data-k="r1_v">금상 (1st place)</span><small data-k="r1_s">참가 23팀 중 1위 · 팀 "AI하르방"</small></div></div>
+    <div class="rbox"><div class="rk" data-k="r2_k">TEAM</div><div class="rv"><span data-k="r2_v">3인 팀</span><small data-k="r2_s">기계공학부 · 전기전자공학부 · 보건환경융합과학부</small></div></div>
   </div>
 </div></section>
 
@@ -450,6 +450,15 @@ var mathEl = document.getElementById("mathSection");
 var vTemp = document.getElementById("v_temp"), vSmp = document.getElementById("v_smp"), vP0 = document.getElementById("v_p0");
 
 function won(n){ return Math.round(n).toLocaleString(lang==="en"?"en-US":"ko-KR") + (lang==="en"?" KRW":"원"); }
+/* 수식(TeX) 안의 금액: 통화 단위는 글자로(KRW 가 기울어진 변수 K·R·W 로 찍히지 않게) */
+function wonM(n){ return num(Math.round(n),0) + (lang==="en" ? "\\ \\text{KRW}" : "\\text{원}"); }
+/* 좁은 화면에서는 대입 예시를 '= 결과' 두 줄로 나눠 상자 밖으로 잘리지 않게 한다 */
+var NARROW = window.matchMedia ? window.matchMedia("(max-width:640px)") : {matches:false};
+function eqn(lhs, rhs, res){
+  return NARROW.matches
+    ? '\\[ \\begin{aligned} '+lhs+' &= '+rhs+' \\\\ &= '+res+' \\end{aligned} \\]'
+    : '\\[ '+lhs+' = '+rhs+' = '+res+' \\]';
+}
 function pct(n){ return (n*100).toFixed(1)+"%"; }
 function num(n,d){ d = d===undefined?2:d; return Number(n).toLocaleString(lang==="en"?"en-US":"ko-KR",{maximumFractionDigits:d}); }
 function heatFactor(t){ return 1 + Math.max(0, t-25) * 0.01; }
@@ -504,11 +513,11 @@ function renderDemo(){
     '<div class="math-intro">' + (lang==="en"
       ? 'This is computed by <b>deterministic code, not an LLM</b>. Worked example at the current recommendation, <b>'+Math.round(r*100)+'% output</b>:'
       : '이 계산은 <b>LLM이 아니라 결정론적 코드</b>가 수행합니다. 현재 추천값인 <b>'+Math.round(r*100)+'% 출력</b>으로 대입한 예시:') + '</div>' +
-    step(1, lang==="en"?"Heat-stress correction":"열 스트레스 보정계수", '\\[ h = 1 + \\max(0,\\ T_{amb}-25)\\times 0.01 \\]', '\\[ h = 1+\\max(0,\\ '+num(d.t)+'-25)\\times0.01 = '+num(d.h,4)+' \\]') +
+    step(1, lang==="en"?"Heat-stress correction":"열 스트레스 보정계수", '\\[ h = 1 + \\max(0,\\ T_{amb}-25)\\times 0.01 \\]', eqn('h', '1+\\max(0,\\ '+num(d.t)+'-25)\\times0.01', num(d.h,4))) +
     step(2, lang==="en"?"Failure-probability multiplier":"고장확률 배수 함수", '\\[ M(r) = e^{K(r-1)},\\quad K = '+K_FAILURE+' \\]', '\\[ M('+r+') = e^{'+K_FAILURE+'('+r+'-1)} = '+num(fm,4)+' \\]') +
-    step(3, lang==="en"?"Adjusted failure probability":"조정 고장확률", '\\[ p(r) = \\min(1,\\ p_0\\cdot M(r)\\cdot h) \\]', '\\[ p('+r+') = \\min(1,\\ '+num(d.p0,4)+'\\times'+num(fm,4)+'\\times'+num(d.h,4)+') = '+num(ex.adjFail,4)+' \\]') +
-    step(4, lang==="en"?"Revenue & risk cost":"매출 & 리스크비용", '\\[ G(r)=r\\cdot C_{rated}\\cdot H\\cdot P_{SMP} \\]\\[ R(r)=p(r)\\cdot(C_{repair}+C_{penalty}) \\]', '\\[ G('+r+')='+r+'\\times'+RATED_KW+'\\times'+DAILY_HOURS+'\\times'+num(d.smp)+'='+won(ex.gross)+' \\]\\[ R('+r+')='+num(ex.adjFail,4)+'\\times'+num(TOTAL_RISK_COST,0)+'='+won(ex.riskCost)+' \\]') +
-    step(5, lang==="en"?"Objective — net profit":"목적함수 — 순이익", '\\[ \\Pi(r)=G(r)-R(r) \\]', '\\[ \\Pi('+r+')='+won(ex.gross)+'-'+won(ex.riskCost)+'='+won(ex.net)+' \\]') +
+    step(3, lang==="en"?"Adjusted failure probability":"조정 고장확률", '\\[ p(r) = \\min(1,\\ p_0\\cdot M(r)\\cdot h) \\]', eqn('p('+r+')', '\\min(1,\\ '+num(d.p0,4)+'\\times'+num(fm,4)+'\\times'+num(d.h,4)+')', num(ex.adjFail,4))) +
+    step(4, lang==="en"?"Revenue & risk cost":"매출 & 리스크비용", '\\[ G(r)=r\\cdot C_{rated}\\cdot H\\cdot P_{SMP} \\]\\[ R(r)=p(r)\\cdot(C_{repair}+C_{penalty}) \\]', eqn('G('+r+')', r+'\\times'+RATED_KW+'\\times'+DAILY_HOURS+'\\times'+num(d.smp), wonM(ex.gross))+eqn('R('+r+')', num(ex.adjFail,4)+'\\times'+num(TOTAL_RISK_COST,0), wonM(ex.riskCost))) +
+    step(5, lang==="en"?"Objective — net profit":"목적함수 — 순이익", '\\[ \\Pi(r)=G(r)-R(r) \\]', eqn('\\Pi('+r+')', wonM(ex.gross)+(NARROW.matches?' \\\\ &\\quad ':'')+'-'+wonM(ex.riskCost), wonM(ex.net))) +
     '<div class="rulehint">' + (lang==="en"
       ? 'The real workflow rejects a candidate if its risk ratio ρ(r)=R(r)/G(r) exceeds '+Math.round(RISK_RATIO_THRESHOLD*100)+'% ("low-quality profit"), or if candidate ratios differ by less than '+(MIN_GAP*100)+' percentage points (insufficient diversity) — this is the rule-based re-verification described above, running on these same numbers.'
       : '실제 워크플로우는 리스크비율 ρ(r)=R(r)/G(r)이 '+Math.round(RISK_RATIO_THRESHOLD*100)+'%를 넘으면 "질 낮은 순이익"으로, 후보 비율 간 차이가 '+(MIN_GAP*100)+'%p 미만이면 "다양성 부족"으로 반려합니다 — 위에서 설명한 규칙기반 재검증이 바로 이 숫자들 위에서 동작합니다.') +
@@ -528,9 +537,12 @@ function refreshDemo(){
   });
 }
 function step(n,title,eq,we){
-  return '<div class="math-step"><div class="math-step-title">'+n+'. '+title+'</div><div class="math-eq">'+eq+'</div><div class="we">'+we+'</div></div>';
+  /* TeX 는 쉼표 뒤에 공백을 넣는다(3, 500, 000) - 숫자 속 쉼표는 {,} 로 */
+  var nc = function(x){ return x.replace(/(\d),(?=\d)/g, "$1{,}"); };
+  return '<div class="math-step"><div class="math-step-title">'+n+'. '+title+'</div><div class="math-eq">'+nc(eq)+'</div><div class="we">'+nc(we)+'</div></div>';
 }
 [elTemp, elSmp, elP0].forEach(function(el){ el.addEventListener("input", refreshDemo); });
+if(NARROW.addEventListener) NARROW.addEventListener("change", refreshDemo);
 if(lang==="en") applyLang(); else renderDemo();
 
 /* ============ visit beacon (GAS relay, shared across sites) ============ */
