@@ -150,7 +150,7 @@ section.sec + section.sec{border-top:1px solid var(--line)}
 .math-step-title{font-family:'Fraunces';font-size:.98rem;font-weight:600;margin-bottom:8px}
 .math-eq{font-size:.95rem;margin:8px 2px;overflow-x:auto}
 .we{background:var(--bg-card-2);border-radius:9px;padding:12px 14px;margin-top:9px;font-size:.85rem;overflow-x:auto}
-.rulehint{font-size:.83rem;color:var(--ochre);background:var(--ochre-tint);border:1px solid var(--ochre-tint-line);border-radius:8px;padding:9px 12px;margin-top:16px 0 6px;line-height:1.55}
+.rulehint{font-size:.83rem;color:var(--ochre);background:var(--ochre-tint);border:1px solid var(--ochre-tint-line);border-radius:8px;padding:9px 12px;margin:16px 0 6px;line-height:1.55}
 
 /* extension list */
 .extlist{display:flex;flex-direction:column;gap:16px;margin-top:22px}
@@ -181,7 +181,12 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
   section.sec{padding:38px 0}
   .rolecard{padding:20px}
   .objbox{padding:20px}
-  .demobox{padding:18px 18px 4px}
+  .demobox{padding:18px 14px 4px}
+  /* 폰에서 수식이 상자 밖으로 잘리지 않게: 겹친 안쪽 여백을 줄이고 수식 글자를 조금 작게 */
+  .math-section{padding:20px 14px 6px}
+  .we{padding:10px 8px}
+  .math-eq,.we{font-size:.74rem}
+  .langtog button{min-height:44px;padding:7px 15px}
 }
 </style>
 </head>
@@ -258,9 +263,9 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
     <div class="fnode"><span class="ftag code" data-k="tag_auto">자동 수집</span><h4 data-k="a_n1_h">데이터 입력</h4><p data-k="a_n1_p">SMP 전력가격 API + 제주 기상청 API(기온·하늘상태·풍속) + ESS BMS 센서(Google Sheets, 온도·전압·C-rate)</p></div>
     <div class="fnode"><span class="ftag code" data-k="tag_code">규칙기반 코드</span><h4 data-k="a_n2_h">PHM Engine</h4><p data-k="a_n2_p">온도·진동·전류·압력 4개 신호를 가중합(0.35/0.35/0.15/0.15)해 고장확률을 산출. Critical 신호가 하나라도 있으면 최소 0.75로 보정하는 등 규칙기반 로직.</p></div>
     <div class="fnode"><span class="ftag ai" data-k="tag_ai">AI 제안</span><h4 data-k="a_n3_h">Strategy Proposer</h4><p data-k="a_n3_p">LLM이 검토할 가치가 있는 출력비율 후보를 제안. <b>숫자는 직접 계산하지 않습니다</b> — 손익 계산은 다음 단계의 몫으로 명시적으로 넘깁니다.</p></div>
-    <div class="fnode"><span class="ftag code" data-k="tag_code">결정론적 코드</span><h4 data-k="a_n4_h">Trade-off Optimization Engine</h4><p data-k="a_n4_p">목적함수 Π(r)=G(r)−R(r)로 각 후보의 매출·리스크비용·순이익을 코드가 직접 계산.</p></div>
-    <div class="fnode"><span class="ftag ai" data-k="tag_ai">AI 검증</span><h4 data-k="a_n5_h">Safety × Financial Reviewer</h4><p data-k="a_n5_p">서로 다른 관점을 가진 두 LLM 리뷰어가 같은 시나리오를 교차검증. 안전 리뷰어는 정비기록·PHM 우선순위로, 재무 리뷰어는 이미 계산된 숫자만 인용하도록 설계.</p></div>
-    <div class="fnode"><span class="ftag code" data-k="tag_code">결정론적 코드</span><h4 data-k="a_n6_h">규칙기반 재검증</h4><p data-k="a_n6_p">AI 응답의 스키마 검증 + <b>같은 공식으로 독립적으로 재계산해 원 값과 대조(diff-check)</b> + 물리적 타당성 + 후보 다양성 검증.</p></div>
+    <div class="fnode"><span class="ftag code" data-k="tag_det">결정론적 코드</span><h4 data-k="a_n4_h">Trade-off Optimization Engine</h4><p data-k="a_n4_p">목적함수 Π(r)=G(r)−R(r)로 각 후보의 매출·리스크비용·순이익을 코드가 직접 계산.</p></div>
+    <div class="fnode"><span class="ftag ai" data-k="tag_aiv">AI 검증</span><h4 data-k="a_n5_h">Safety × Financial Reviewer</h4><p data-k="a_n5_p">서로 다른 관점을 가진 두 LLM 리뷰어가 같은 시나리오를 교차검증. 안전 리뷰어는 정비기록·PHM 우선순위로, 재무 리뷰어는 이미 계산된 숫자만 인용하도록 설계.</p></div>
+    <div class="fnode"><span class="ftag code" data-k="tag_det">결정론적 코드</span><h4 data-k="a_n6_h">규칙기반 재검증</h4><p data-k="a_n6_p">AI 응답의 스키마 검증 + <b>같은 공식으로 독립적으로 재계산해 원 값과 대조(diff-check)</b> + 물리적 타당성 + 후보 다양성 검증.</p></div>
     <div class="fnode"><span class="ftag code" data-k="tag_gate">제어 로직</span><h4 data-k="a_n7_h">재시도 게이트</h4><p data-k="a_n7_p">반려되면 <b>최대 1회만</b> 자동으로 재제안. 그래도 통과하지 못하면 그대로 사람에게 넘깁니다.</p></div>
     <div class="fnode"><span class="ftag human" data-k="tag_human">사람</span><h4 data-k="a_n8_h">Human-in-the-Loop 승인</h4><p data-k="a_n8_p">Slack 카드로 A/B/C 시나리오 제시 → 관리자 원클릭 승인 → Google Sheets 자동 기록.</p></div>
   </div>
@@ -287,7 +292,7 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
     <div class="sliders">
       <div class="sliderrow"><div class="sl"><span data-k="sl_temp">외기온 (T_amb)</span><b id="v_temp">31.4℃</b></div><input type="range" id="s_temp" min="15" max="45" step="0.1" value="31.4"></div>
       <div class="sliderrow"><div class="sl"><span data-k="sl_smp">SMP 전력가격</span><b id="v_smp">142원/kWh</b></div><input type="range" id="s_smp" min="50" max="250" step="1" value="142"></div>
-      <div class="sliderrow"><div class="sl"><span data-k="sl_p0">PHM 기준 고장확률</span><b id="v_p0">4.1%</b></div><input type="range" id="s_p0" min="1" max="60" step="0.5" value="4.1"></div>
+      <div class="sliderrow"><div class="sl"><span data-k="sl_p0">PHM 기준 고장확률</span><b id="v_p0">4.1%</b></div><input type="range" id="s_p0" min="1" max="60" step="0.1" value="4.1"></div>
     </div>
     <div class="scenarios" id="scenarioCards"></div>
     <div class="math-section" id="mathSection"></div>
@@ -334,7 +339,7 @@ footer .methtags span{font-family:'JetBrains Mono';font-size:11px;color:var(--in
 var EN = {
   hd_sub: "Korea University × Upstage Energy AI Hackathon",
   hero_kick: "TEAM PROJECT · SYSTEM ARCHITECTURE",
-  hero_h1: "A VPP bidding system that prices in<br>equipment risk, not just market price",
+  hero_h1: "A VPP bidding system that prices in equipment risk, not just market price",
   hero_lead: "Conventional VPP (virtual power plant) trading always assumes equipment is <b>100% healthy</b>. This project puts failure and degradation risk directly into the objective function, and recommends the optimal bid through a dual-approval, Human-in-the-Loop system where <b>AI proposes candidates and code verifies the numbers</b>.",
   pill_award: "Gold Prize · Korea University × Upstage Energy AI Hackathon (1st of 23 teams)",
   pill_role: "Team Lead · System Architecture",
@@ -363,7 +368,7 @@ var EN = {
   a_kick: "03 · SYSTEM ARCHITECTURE",
   a_h2: "AI only proposes — the numbers are computed by code",
   a_p: "Built as an 8-stage pipeline on n8n. The core design decision was to clearly separate each stage into <b>AI judgment</b>, <b>deterministic code</b>, or <b>human approval</b>.",
-  tag_auto: "auto-collected", tag_code: "rule-based code", tag_ai: "AI proposal", tag_gate: "control logic", tag_human: "human",
+  tag_auto: "auto-collected", tag_code: "rule-based code", tag_det: "deterministic code", tag_ai: "AI proposal", tag_aiv: "AI review", tag_gate: "control logic", tag_human: "human",
   a_n1_h: "Data ingestion", a_n1_p: "SMP power-price API + Jeju weather API (temperature, sky, wind) + ESS BMS sensors (Google Sheets — temperature, voltage, C-rate)",
   a_n2_h: "PHM Engine", a_n2_p: "Weighted sum of 4 sensor signals (temperature/vibration/current/pressure at 0.35/0.35/0.15/0.15) yields a failure probability, with rule-based corrections — e.g. any single critical signal forces a floor of 0.75.",
   a_n3_h: "Strategy Proposer", a_n3_p: "An LLM proposes output-ratio candidates worth reviewing. <b>It never computes the numbers itself</b> — the profit/loss math is explicitly deferred to the next stage.",
@@ -378,7 +383,7 @@ var EN = {
   v1_h: "① Dual-perspective cross-review",
   v1_p: "The same scenario is reviewed independently by a Safety Reviewer (prioritizing maintenance record ＞ PHM ＞ operating environment ＞ scenario) and a Financial Reviewer (instructed to cite only pre-computed numbers, never recompute). The prompts were deliberately designed so no single AI judgment is trusted alone — each catches a different kind of failure.",
   v2_h: "② AI proposes, code decides",
-  v2_p: "None of the dollar/probability figures an LLM produces are trusted as-is. A rule-based node <b>independently recomputes the same formula</b> and diffs it against the original values (1-won tolerance); any mismatch is rejected on the spot.",
+  v2_p: "None of the money or probability figures an LLM produces are trusted as-is. A rule-based node <b>independently recomputes the same formula</b> and diffs it against the original values (1-won tolerance); any mismatch is rejected on the spot.",
   v3_h: "③ A finite retry bound prevents infinite loops",
   v3_p: "On rejection, the system retries automatically at most once. If it still fails, the decision goes to a human as-is — the premise that \"AI verification isn't perfect either\" is built explicitly into the system design.",
   d_kick: "05 · TRY IT YOURSELF",
@@ -395,21 +400,42 @@ var EN = {
   m1: "objective-function design", m2: "dual LLM cross-review", m3: "rule-based recompute diff-check", m4: "finite retry gate", m5: "Human-in-the-Loop UX",
   ft_back: "More in the Workshop →",
 };
-var lang = "ko";
+/* 언어: ?lang= > 지난번 선택 > 브라우저 언어 */
+var lang = (function(){
+  var q = new URLSearchParams(location.search).get("lang");
+  if(q==="ko"||q==="en") return q;
+  try{ var v = localStorage.getItem("vpp_lang"); if(v==="ko"||v==="en") return v; }catch(e){}
+  return (navigator.language||"").toLowerCase().indexOf("ko")===0 ? "ko" : "en";
+})();
+var I18N_EL = [].slice.call(document.querySelectorAll("[data-k]"));
+/* 원문은 MathJax 가 수식을 바꾸기 전에 저장해 둔다(나중에 저장하면 조판된 HTML 이 원문이 된다) */
+I18N_EL.forEach(function(el){ el.dataset.ko = el.innerHTML; });
+
+/* MathJax: 바뀐 부분만, 한 번에 하나씩 조판한다.
+   문서 전체를 입력 이벤트마다 다시 조판하면 슬라이더를 끄는 동안 화면이 버벅이고 메모리가 계속 는다. */
+var mjBusy = false, mjDirty = null;
+function mjReady(){ return !!(window.MathJax && window.MathJax.typesetPromise && window.MathJax.startup && window.MathJax.startup.document); }
+function mjClear(els){ if(mjReady() && window.MathJax.typesetClear) window.MathJax.typesetClear(els); }
+function mjTypeset(els){
+  if(!mjReady()) return;          /* 아직 로드 전이면 MathJax 가 시작할 때 페이지 전체를 조판한다 */
+  window.MathJax.typesetPromise(els).catch(function(e){ console.error("MathJax", e); });
+}
 function applyLang(){
   document.documentElement.lang = lang;
-  document.querySelectorAll("[data-k]").forEach(function(el){
-    if(el.dataset.ko == null) el.dataset.ko = el.innerHTML;
+  mjClear(I18N_EL);
+  I18N_EL.forEach(function(el){
     var v = (lang==="en") ? EN[el.dataset.k] : null;
     el.innerHTML = (v!=null) ? v : el.dataset.ko;
   });
-  renderDemo();
-  if(window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise();
+  document.querySelectorAll(".langtog button").forEach(function(x){ x.classList.toggle("on", x.dataset.lang===lang); });
+  mjTypeset(I18N_EL);
+  refreshDemo();
 }
 document.querySelectorAll(".langtog button").forEach(function(b){
   b.addEventListener("click", function(){
+    if(lang === b.dataset.lang) return;
     lang = b.dataset.lang;
-    document.querySelectorAll(".langtog button").forEach(function(x){ x.classList.toggle("on", x===b); });
+    try{ localStorage.setItem("vpp_lang", lang); }catch(e){}
     applyLang();
   });
 });
@@ -420,6 +446,7 @@ var RATED_KW = 1000, DAILY_HOURS = 4, RISK_RATIO_THRESHOLD = 0.30, MIN_GAP = 0.1
 var RATIOS = [1.0, 0.7, 0.4, 0];
 
 var elTemp = document.getElementById("s_temp"), elSmp = document.getElementById("s_smp"), elP0 = document.getElementById("s_p0");
+var mathEl = document.getElementById("mathSection");
 var vTemp = document.getElementById("v_temp"), vSmp = document.getElementById("v_smp"), vP0 = document.getElementById("v_p0");
 
 function won(n){ return Math.round(n).toLocaleString(lang==="en"?"en-US":"ko-KR") + (lang==="en"?" KRW":"원"); }
@@ -455,7 +482,7 @@ function renderDemo(){
   var cardsHtml = d.scenarios.map(function(s, idx){
     var isStop = s.ratio===0;
     var isBest = !isStop && s===best;
-    var grossBar = maxGross ? Math.max(4,(s.gross/maxGross)*100) : 0;
+    var grossBar = s.gross>0 ? Math.max(4,(s.gross/maxGross)*100) : 0;
     var riskBar = s.gross ? Math.min(100,(s.riskCost/s.gross)*100) : 0;
     var netClass = s.net<0 ? "negative":"positive";
     var badge = isBest ? '<span class="badge-primary">'+(lang==="en"?"Highest net profit":"실질 순이익 최고")+'</span>' : (idx===0 && !isStop ? '<span class="badge-primary" style="background:var(--bg-card-2);color:var(--ink-muted)">'+(lang==="en"?"100% output":"100% 출력")+'</span>' : "");
@@ -463,7 +490,7 @@ function renderDemo(){
       '<div class="ratio-row"><div class="ratio">'+Math.round(s.ratio*100)+'%</div><div class="kw">'+s.kw.toLocaleString()+' kW</div></div>'+
       '<div class="waterfall">'+
         '<div class="wf-row"><div class="wf-label mono">'+(lang==="en"?"rev":"매출")+'</div><div class="wf-track"><div class="wf-fill gross" style="width:'+grossBar+'%"></div></div><div class="wf-val mono">'+Math.round(s.gross).toLocaleString()+'</div></div>'+
-        '<div class="wf-row"><div class="wf-label mono">'+(lang==="en"?"risk":"리스크")+'</div><div class="wf-track"><div class="wf-fill risk" style="width:'+riskBar+'%"></div></div><div class="wf-val mono">-'+Math.round(s.riskCost).toLocaleString()+'</div></div>'+
+        '<div class="wf-row"><div class="wf-label mono">'+(lang==="en"?"risk":"리스크")+'</div><div class="wf-track"><div class="wf-fill risk" style="width:'+riskBar+'%"></div></div><div class="wf-val mono">'+(Math.round(s.riskCost)>0?'-':'')+Math.round(s.riskCost).toLocaleString()+'</div></div>'+
       '</div>'+
       '<div class="net-row"><div class="net-label">'+(lang==="en"?"net profit":"순이익")+'</div><div class="net-value '+netClass+'">'+won(s.net)+'</div></div>'+
       '<div class="fail-row"><span>'+(lang==="en"?"failure prob.":"고장확률")+'</span><span class="fv mono">'+pct(s.adjFail)+'</span></div>'+
@@ -480,19 +507,31 @@ function renderDemo(){
     step(1, lang==="en"?"Heat-stress correction":"열 스트레스 보정계수", '\\[ h = 1 + \\max(0,\\ T_{amb}-25)\\times 0.01 \\]', '\\[ h = 1+\\max(0,\\ '+num(d.t)+'-25)\\times0.01 = '+num(d.h,4)+' \\]') +
     step(2, lang==="en"?"Failure-probability multiplier":"고장확률 배수 함수", '\\[ M(r) = e^{K(r-1)},\\quad K = '+K_FAILURE+' \\]', '\\[ M('+r+') = e^{'+K_FAILURE+'('+r+'-1)} = '+num(fm,4)+' \\]') +
     step(3, lang==="en"?"Adjusted failure probability":"조정 고장확률", '\\[ p(r) = \\min(1,\\ p_0\\cdot M(r)\\cdot h) \\]', '\\[ p('+r+') = \\min(1,\\ '+num(d.p0,4)+'\\times'+num(fm,4)+'\\times'+num(d.h,4)+') = '+num(ex.adjFail,4)+' \\]') +
-    step(4, lang==="en"?"Revenue & risk cost":"매출 & 리스크비용", '\\[ G(r)=r\\cdot C_{rated}\\cdot H\\cdot P_{SMP} \\qquad R(r)=p(r)\\cdot(C_{repair}+C_{penalty}) \\]', '\\[ G('+r+')='+r+'\\times'+RATED_KW+'\\times'+DAILY_HOURS+'\\times'+num(d.smp)+'='+won(ex.gross)+' \\]\\[ R('+r+')='+num(ex.adjFail,4)+'\\times'+num(TOTAL_RISK_COST,0)+'='+won(ex.riskCost)+' \\]') +
+    step(4, lang==="en"?"Revenue & risk cost":"매출 & 리스크비용", '\\[ G(r)=r\\cdot C_{rated}\\cdot H\\cdot P_{SMP} \\]\\[ R(r)=p(r)\\cdot(C_{repair}+C_{penalty}) \\]', '\\[ G('+r+')='+r+'\\times'+RATED_KW+'\\times'+DAILY_HOURS+'\\times'+num(d.smp)+'='+won(ex.gross)+' \\]\\[ R('+r+')='+num(ex.adjFail,4)+'\\times'+num(TOTAL_RISK_COST,0)+'='+won(ex.riskCost)+' \\]') +
     step(5, lang==="en"?"Objective — net profit":"목적함수 — 순이익", '\\[ \\Pi(r)=G(r)-R(r) \\]', '\\[ \\Pi('+r+')='+won(ex.gross)+'-'+won(ex.riskCost)+'='+won(ex.net)+' \\]') +
     '<div class="rulehint">' + (lang==="en"
-      ? 'The real workflow rejects a candidate if its risk ratio ρ(r)=R(r)/G(r) exceeds '+Math.round(RISK_RATIO_THRESHOLD*100)+'% ("low-quality profit"), or if candidate ratios differ by less than '+(MIN_GAP*100)+' percentage points (insufficient diversity) — this is the rule-based re-verification (07b) described above, running on these same numbers.'
-      : '실제 워크플로우는 리스크비율 ρ(r)=R(r)/G(r)이 '+Math.round(RISK_RATIO_THRESHOLD*100)+'%를 넘으면 "질 낮은 순이익"으로, 후보 비율 간 차이가 '+(MIN_GAP*100)+'%p 미만이면 "다양성 부족"으로 반려합니다 — 위에서 설명한 규칙기반 재검증(07b)이 바로 이 숫자들 위에서 동작합니다.') +
+      ? 'The real workflow rejects a candidate if its risk ratio ρ(r)=R(r)/G(r) exceeds '+Math.round(RISK_RATIO_THRESHOLD*100)+'% ("low-quality profit"), or if candidate ratios differ by less than '+(MIN_GAP*100)+' percentage points (insufficient diversity) — this is the rule-based re-verification described above, running on these same numbers.'
+      : '실제 워크플로우는 리스크비율 ρ(r)=R(r)/G(r)이 '+Math.round(RISK_RATIO_THRESHOLD*100)+'%를 넘으면 "질 낮은 순이익"으로, 후보 비율 간 차이가 '+(MIN_GAP*100)+'%p 미만이면 "다양성 부족"으로 반려합니다 — 위에서 설명한 규칙기반 재검증이 바로 이 숫자들 위에서 동작합니다.') +
     '</div>';
-  document.getElementById("mathSection").innerHTML = mathHtml;
+  mjClear([mathEl]);
+  mathEl.innerHTML = mathHtml;
+}
+/* 슬라이더를 빠르게 끌어도 조판은 한 번에 하나만 돌고, 밀린 입력은 마지막 값 하나로 합친다 */
+function refreshDemo(){
+  if(mjBusy){ mjDirty = true; return; }
+  renderDemo();
+  if(!mjReady()) return;
+  mjBusy = true;
+  window.MathJax.typesetPromise([mathEl]).catch(function(e){ console.error("MathJax", e); }).then(function(){
+    mjBusy = false;
+    if(mjDirty){ mjDirty = false; refreshDemo(); }
+  });
 }
 function step(n,title,eq,we){
   return '<div class="math-step"><div class="math-step-title">'+n+'. '+title+'</div><div class="math-eq">'+eq+'</div><div class="we">'+we+'</div></div>';
 }
-[elTemp, elSmp, elP0].forEach(function(el){ el.addEventListener("input", function(){ renderDemo(); if(window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise(); }); });
-renderDemo();
+[elTemp, elSmp, elP0].forEach(function(el){ el.addEventListener("input", refreshDemo); });
+if(lang==="en") applyLang(); else renderDemo();
 
 /* ============ visit beacon (GAS relay, shared across sites) ============ */
 (function(){
