@@ -436,6 +436,8 @@ document.querySelectorAll(".langtog button").forEach(function(b){
     if(lang === b.dataset.lang) return;
     lang = b.dataset.lang;
     try{ localStorage.setItem("vpp_lang", lang); }catch(e){}
+    /* 주소에 ?lang= 이 있으면 고른 언어로 바꿔 둔다 - 안 그러면 새로고침 때 옛 언어로 돌아간다 */
+    try{ var u = new URL(location.href); if(u.searchParams.has("lang")){ u.searchParams.set("lang", lang); history.replaceState(history.state, "", u.pathname + u.search + u.hash); } }catch(e){}
     applyLang();
   });
 });
